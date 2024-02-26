@@ -1,27 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Feedback Result</title>
-</head>
-<body>
-    <h2>Feedback Result</h2>
+<cfcomponent>
+    <cffunction name="processFeedback" access="remote" returntype="string">
+        <cfargument name="ratingValue" type="numeric" required="true">
 
-    <cfparam name="form.ratingValue" default="0">
-    
-
-    <cfif form.ratingValue EQ 5>
-        <p>Very good</p>
-    <cfelseif form.ratingValue EQ 4>
-    
-        <p>Good</p>
-    <cfelseif form.ratingValue EQ 3>
-        <p>Fair</p>
-    <cfelseif form.ratingValue EQ 2 OR form.ratingValue EQ 1>
-        <p>OK</p>
-    <cfelse>
-        <p>Invalid input. Please enter a number between 1 and 5.</p>
-    </cfif>
-
-    <p><a href="task1.cfm">Go back</a></p>
-</body>
-</html>
+        <cfif arguments.ratingValue EQ 5>
+            <cfreturn "Very good">
+        <cfelseif arguments.ratingValue EQ 4>
+            <cfreturn "Good">
+        <cfelseif arguments.ratingValue EQ 3>
+            <cfreturn "Fair">
+        <cfelseif arguments.ratingValue EQ 2 OR arguments.ratingValue EQ 1>
+            <cfreturn "OK">
+        <cfelse>
+            <cfreturn "Invalid input. Please enter a number between 1 and 5.">
+        </cfif>
+    </cffunction>
+</cfcomponent>
