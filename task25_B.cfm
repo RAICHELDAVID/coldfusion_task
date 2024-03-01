@@ -5,6 +5,8 @@
 </cfquery>
 
 <cfif dbConnection.recordCount>
+
+    <!--- Retrieve words from the database --->
     <cfquery name="getWords" datasource="demo">
         SELECT Word
         FROM WordTable_TASK25
@@ -34,6 +36,7 @@
     <cfloop item="word" collection="#wordCounts#">
         <cfset arrayAppend(sortedArray, {"Word": word, "Count": wordCounts[word]})>
     </cfloop>
+    
 
     <!--- Sort the array by count (in descending order) --->
     <cfset arraySort(sortedArray, "numeric", "desc", "Count")>
@@ -56,7 +59,30 @@
         </cfloop>
         </ul>
     </cfoutput>
+<!--- Custom sorting function to sort by Count in descending order --->
+
+<cfscript>
+function sortByCountDescending(a, b) {
+    return a.Count < b.Count ? 1 : (a.Count > b.Count ? -1 : 0);
+}
+</cfscript>
+
+<!--- Sort the array by count (in descending order) using the custom sorting function --->
+<cfset arraySort(sortedArray, sortByCountDescending)>
+
+<!--- Display the sorted results --->
+<cfoutput>
+    <ul>
+    <cfloop array="#sortedArray#" index="word">
+        <cfif len(trim(word.Word)) gte 3>
+            <li>#word.Word# (#word.Count#)</li>
+        </cfif>
+    </cfloop>
+    </ul>
+</cfoutput>
+
 <cfelse>
     <!--- Database connection failed --->
     <cfoutput>Error: Unable to establish a database connection.</cfoutput>
 </cfif>
+
