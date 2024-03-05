@@ -10,10 +10,10 @@ $(document).ready(function(){
             },
             success: function(response){
 
-                if(response>0) {
+                if(response>=1) {
                     $("#emailStatus").text("Email ID already exists.");
                     $("#subscribeButton").prop("disabled", true);
-                } else {
+                } else if(response==0) {
                     $("#emailStatus").text("Email ID is available.");
                     $("#subscribeButton").prop("disabled", false);
                 }

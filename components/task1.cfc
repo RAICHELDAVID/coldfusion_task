@@ -3,7 +3,7 @@
         <cfargument name="ratingValue" type="numeric" required="true">
 
         <cfif arguments.ratingValue EQ 5>
-            <cfreturn "Very good">
+            <cfreturn "very good">
         <cfelseif arguments.ratingValue EQ 4>
             <cfreturn "Good">
         <cfelseif arguments.ratingValue EQ 3>
