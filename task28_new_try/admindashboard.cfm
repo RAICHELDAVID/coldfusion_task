@@ -17,13 +17,14 @@
 				<th>Page Name</th>
 				<th>Page Description</th>
 			</tr>
+			<!--- <cfdump  var="#getPages#"> --->
 			<cfoutput query="getPages">
 				<tr>
 					<td>#pagename#</td>
 					<td>#pagedesc#</td>
 					<td>
 						<form action="editPage.cfm" method="post">
-							<input type="hidden" name="pageid" value="#getPages.pageid#">
+							<input type="hidden" name="pageid" id="pageid" value="#getPages.pageid#">
 							<input type="submit" value="Edit">
 						</form>
 					</td>

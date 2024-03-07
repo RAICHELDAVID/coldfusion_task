@@ -19,6 +19,13 @@
         <cfargument name="pageid" type="numeric" required="true">
         <cfargument name="pagename" type="string" required="true">
         <cfargument name="pagedesc" type="string" required="true">
+        <cfdump  var="arguments :">
+        <cfdump  var="#arguments#">
+
+        <cfif NOT isNumeric(arguments.pageid)>
+        <cfthrow message="Invalid pageid passed">
+    </cfif>
+       
     <cflog text="Page ID: #arguments.pageid#, Page Name: #arguments.pagename#, Page Description: #arguments.pagedesc#" type="information">
 
         <cfquery name="editPageQuery" datasource="demo">
