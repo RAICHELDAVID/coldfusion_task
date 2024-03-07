@@ -1,0 +1,138 @@
+body{
+    background-color:#649b04;
+}
+div.formBody{
+    margin: 0 auto 10px auto;
+    width: 640px;
+    background-color: #FFFFFF;
+    border: 0 solid #cccccc;
+    text-align: left;
+    background: #fff;
+
+}
+#logo{
+    background-image: none;
+    background-color: #99cc00;
+
+}
+
+form.wufoo{
+    margin: 20px 14px 0 14px;
+    padding: 0 0 20px 0;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Tahoma, sans-serif;
+    letter-spacing: .01em;
+}
+form #header{
+    border-bottom: 1px dotted #CCCCCC;
+    clear: both;
+    margin: 0 0 5px 0;
+    padding: 0 1% 1.1em 1%;
+}
+.wufoo #header h2 {
+    font-size: 128% !important;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: normal;
+    color: #000000 !important;
+    margin: 0 0 5px 0;
+    clear: left;
+}
+.wufoo #header div {
+    font-size: 73% !important;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: normal;
+    color: #444444 !important;
+    line-height: 135%;
+}
+form ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+.wufoo li {
+    width: 64%;
+    margin: 0;
+    padding: 6px 1% 9px 1%;
+    clear: both;
+    background-color: transparent;
+    transition: background-color 350ms ease-out;
+}
+.wufoo label.desc, .wufoo legend.desc, .likert caption {
+    font-size: 75% !important;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: bold;
+    color: #444444 !important;
+}
+form span.req {
+    color: red !important;
+}
+li fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+.radioDivision{
+    display: flex;
+    flex-direction: column;
+
+}
+.wufoo label.choice {
+    font-size: 90% !important;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: normal;
+    color: #444444 !important;
+}
+input.radio {
+    margin: 4px 0 0 0;
+}
+.wufoo input.text{
+    font-style: normal;
+    font-weight: normal;
+    color: #333333 !important;
+    font-size: 80% !important;
+    border-top: 1px solid #7c7c7c;
+    border-left: 1px solid #c3c3c3;
+    border-right: 1px solid #c3c3c3;
+    border-bottom: 1px solid #ddd;
+    padding: 2px 0;
+}
+.dateContainer{
+    display: flex;
+
+}
+.dateContent{
+    display: flex;
+}
+.dateInputOne{
+    width: 19px;
+    height: 21px;
+}
+.dateInputTwo{
+    width:35px;
+    height: 21px;
+}
+.dateContent #month{
+    margin-right: 17px;
+    font-size: 11px;
+    margin-top: 4px;
+}
+.dateContent #day{
+    margin-right: 21px;
+    font-size: 11px;
+    margin-top: 4px;
+
+}
+.dateContent #year{
+    margin-top: 4px;
+    font-size: 11px;
+}
+.ui-datepicker .ui-datepicker-header {
+    background-color:white;
+}
+.ui-icon-circle-triangle-w {
+    background-position: initial;
+        transform: rotate(268deg);
+}
