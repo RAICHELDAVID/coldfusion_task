@@ -12,4 +12,8 @@ function changeColor(elementID) {
     });
 }
 
-
+function moveCursor(input, nextFieldID) {
+    if (input.value.length >= input.maxLength) {
+        document.getElementById(nextFieldID).focus();
+    }
+}
