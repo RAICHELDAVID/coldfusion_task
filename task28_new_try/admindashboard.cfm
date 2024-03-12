@@ -29,7 +29,7 @@
 						</form>
 					</td>
 					<td>
-						<form action="deletePage.cfm" method="post">
+						<form action="components/page.cfc?method=deletePage" method="post">
 							<input type="hidden" name="pageid" value="#getPages.pageid#">
 							<input type="submit" value="Delete">
 						</form>

@@ -1,11 +1,11 @@
 <cfcomponent>
     
-    <cffunction name="addPage" access="public">
+    <cffunction name="addPage" access="remote">
         <cfargument name="pagename" type="string" required="true">
         <cfargument name="pagedesc" type="string" required="true">
         
         <cfquery name="addPageQuery" datasource="demo">
-            INSERT INTO page (pagename, pagedesc)
+            INSERT INTO task28_page (pagename, pagedesc)
             VALUES (
                 <cfqueryparam value="#arguments.pagename#" cfsqltype="cf_sql_varchar">,
                 <cfqueryparam value="#arguments.pagedesc#" cfsqltype="cf_sql_varchar">
@@ -42,7 +42,7 @@
         <cfargument name="pageid" type="numeric" required="true">
         
         <cfquery name="deletePageQuery" datasource="demo">
-            DELETE FROM page
+            DELETE FROM task28_page
             WHERE pageid = <cfqueryparam value="#arguments.pageid#" cfsqltype="cf_sql_integer">
         </cfquery>
         
