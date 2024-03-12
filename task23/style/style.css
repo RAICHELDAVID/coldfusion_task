@@ -1,5 +1,5 @@
 body{
-    background-color:#649b04;
+   background-color:#649b04;
     font-family: "Lucida Grande", "Lucida Sans Unicode", Tahoma, sans-serif;
 
 }
@@ -66,6 +66,12 @@ form ul {
     font-weight: bold;
     color: #444444 !important;
 }
+#inputLabel,#title20,#inputLabelThree,#inputLabelFour,#inputLabelFive,#inputLabelSix{
+    font-size: 11px;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: bold;
+}
 form span.req {
     color: red !important;
 }
@@ -93,7 +99,6 @@ input.radio {
     font-style: normal;
     font-weight: normal;
     color: #333333 !important;
-    font-size: 80% !important;
     border-top: 1px solid #7c7c7c;
     border-left: 1px solid #c3c3c3;
     border-right: 1px solid #c3c3c3;
@@ -172,9 +177,9 @@ input.radio {
     text-align: center;
 }
 #field14{
-    width: 393px;
+    width: 379px;
     height: 20px;
-    font-size: 91% !important;
+    
 }
 .wufoo .instruct small, .redesigned-theme-2018 .wufoo label.desc .user-instructions small {
     font-size: 74%;
@@ -202,14 +207,14 @@ width: 16px;
 
 }
 #field22{
-    padding-right: 49px;
+    padding-right: 60px;
     font-size: 13px;
-    color: #333333;
+   
 
 }
 #field23{
     font-size: 13px;
-    color: #333333;
+    
 }
 #field13{
     width: 291px;
@@ -248,5 +253,60 @@ width: 16px;
 .footerDivision a{
     color: #30a1cc;
 }
+.error{
+    margin: 0 !important;
+    font-weight: bold;
+    font-size: 11px;
+    color: #DF0000 !important;
+    clear: both;
+}
+.red-text {
+    color: red;
+}
 
 
+/* styles.css */
+
+.hidden {
+    display: none;
+}
+
+
+
+#inputContainer,#inputContainerTwo,#inputContainerThree,#inputContainerFour,#inputContainerFive,#inputContainerSix {
+    margin-bottom: 10px; /* Adjust margin as needed */
+}
+
+#inputContainer.error,#inputContainerTwo.error,#inputContainerThree.error,#inputContainerFour.error,#inputContainerFive.error,#inputContainerSix.error {
+    background: #ffdfdf;
+    padding: 5px; 
+    padding-bottom: 11px;
+}
+.symbol,.dateContent div,#field22,#field23,#field25,#field25-1,#field25-2{
+    color: #333333;
+
+}
+#errorLi, .error-container {
+    width: 99%;
+    background: #fff !important;
+    border: 1px solid red;
+    text-align: center;
+    border-radius: 20px;
+}
+#errorMsgLbl {
+    margin: 0 0 5px 0;
+    padding: 0;
+    color: #DF0000 !important;
+    font-size: 16px;
+}
+#errorMsg {
+    margin: 0 0 2px 0;
+    color: #000 !important;
+    font-size: 81%;
+}
+#errorMsg b {
+    padding: 2px 8px;
+    background-color: #FFDFDF !important;
+    color: red !important;
+    border-radius: 10px;
+}
