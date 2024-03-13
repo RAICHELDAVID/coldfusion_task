@@ -1,56 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Image Upload Form</title>
-</head>
-<body>
 
-<h2>Image Upload Form</h2>
 <cfoutput>
-<form action="components/ImageUploadProcessor.cfc?method=processForm" method="post">
-<!---<form action="components/page.cfc?method=addPage" method="post">--->
-
-    <label for="imageName">Image Name:</label><br>
-    <input type="text" name="imageName" id="imageName" required><br><br>
-    
-    <label for="imageDescription">Image Description:</label><br>
-    <textarea name="imageDescription" id="imageDescription" required></textarea><br><br>
-    
-    <label for="imageFile">Select Image:</label><br>
-    <input type="file" name="imageFile" id="imageFile" required><br><br>
-    
-    <input type="submit" name="submit" value="Upload Image">
-</form>
-
-<!---<cfparam name="form.imageName" default="">
-<cfparam name="form.imageDescription" default="">
-<cfparam name="form.imageFile" default="">
-   <cfset myComponent = createObject("component", "components.ImageUploadProcessor")>
-
-<cfif structKeyExists(form, "submit")>
-    <!--- Handle form submission --->
-    <cfset form = {
-        imageName = form.imageName,
-        imageDescription = form.imageDescription,
-        imageFile = form.imageFile
-        <!--- Add more form fields as needed --->
-    }>
-    <cfset result = myComponent.processForm(form)>
-    <cfoutput>#result#</cfoutput>
-</cfif--->
-<cfobject component="components.ImageUploadProcessor" name="MyCFC">
-<cfset formData = {
-    imageName = form.imageName,
-    imageDescription = form.imageDescription,
-    imageFile = form.imageFile
-
-   
-}>
-<cfset MyCFC.processForm(formData)>
-
+    <form action="upload_form.cfm" method="post" enctype="multipart/form-data">
+        <input type="text" name="name">
+        <input type="text" name="description">
+        <input type="file" name="uploadedFile" accept=".jpg, .jpeg, .png, .gif">
+        <input type="submit" name="upload" value="Upload">
+    </form>
 </cfoutput>
-<cfdump  var="#form.imageName#">
+    <cfparam name="form.uploadedFile" default="">
+    <cfparam name="form.name" default="">
+    <cfparam name="form.description" default="">
+    <cfset allowedExtensions = ".jpg,.jpeg,.png,.gif">
+    <cfset maxFileSize = 1 * 1024 * 1024> <!-- 1MB in bytes -->
 
-</body>
-</html>
+    <cfif structKeyExists(form, "upload")>
+        <cfset fileUploader = createObject("component", "components.imageUploadProcessor")>
+        <cfset result = fileUploader.uploadFile(form.uploadedFile, form.name, form.description, allowedExtensions, maxFileSize)>
+        <cfif result.success>
+            <!-- Redirect to display_thumbnail.cfm with image name and thumbnail name -->
+            <cfset thumbnailPageURL = "display_thumbnail.cfm?imageName=" & result.imageName & "&thumbnailName=" & result.thumbnailName>
+            <cflocation url="#thumbnailPageURL#" addtoken="false">
+        <cfelse>
+            <cfoutput>#result.message#</cfoutput>
+        </cfif>
+    </cfif>
+
 

@@ -1,73 +1,49 @@
-<cfcomponent>
 
-    <cffunction name="processForm" access="remote" returntype="struct">
-        <cfargument name="formData" type="struct" required="true">
-        
-        <cfset var result = {}>
-        
-        <cftry>
-            <!--- Check if a file has been uploaded --->
-            <cfif structKeyExists(form, "imageFile") and form.imageFile neq "">
-                <!--- Define allowed file types --->
-                <cfset allowedFileTypes = "jpg,jpeg,png,gif">
-                
-                <!--- Define maximum file size in bytes (1 MB) --->
-                <cfset maxFileSize = 1024 * 1024>
-                
-                <!--- Get uploaded file details --->
-                <cfset uploadedFile = form.imageFile>
-                <cfset uploadedFileName = uploadedFile.serverFile>
-                <cfset uploadedFileSize = uploadedFile.fileSize>
-                <cfset uploadedFileType = listLast(uploadedFile.serverFile, ".")>
-                
-                <!--- Check if the uploaded file type is allowed --->
-                <cfif listFindNoCase(allowedFileTypes, uploadedFileType)>
-                    <!--- Check if the file size is within the allowed limit --->
-                    <cfif uploadedFileSize lte maxFileSize>
-                        <!--- Define the upload directory where the images will be stored --->
-                        <cfset uploadDirectory = expandPath("./uploads/")>
+<cfcomponent>
+    <cffunction name="uploadFile" access="public" returntype="struct">
+        <cfargument name="uploadedFile" type="string" required="true">
+        <cfargument name="name" type="string" required="true">
+        <cfargument name="description" type="string" required="true">
+        <cfargument name="allowedExtensions" type="string" required="true">
+        <cfargument name="maxFileSize" type="numeric" required="true">
+
+        <cfset var response = {}>
+
+        <cfif len(arguments.uploadedFile)>
+            <cffile action="upload" filefield="uploadedFile" destination="#expandPath('assets/')#" accept="image/*">
+
+            <cfif cffile.fileWasSaved>
+                <cfif cffile.fileSize lte arguments.maxFileSize>
+                    <cfif listFindNoCase(arguments.allowedExtensions, "." & cffile.serverFileExt)>
+                        <cfset thumbnailPath = expandPath('assets/thumbnails/')>
+                        <cfset thumbnailFileName = "thumbnail_" & cffile.serverFileName>
+                        <cfset thumbnailFileName = thumbnailFileName & "." & cffile.serverFileExt> <!-- Append the original file's extension -->
+
+                        <cfimage action="resize" source="#cffile.serverDirectory#\#cffile.serverFile#" destination="#thumbnailPath#\#thumbnailFileName#" width="20" height="20" overwrite="true">
+
+                        <cfset response.success = true>
+                        <cfset response.message = "File uploaded successfully.">
                         
-                        <!--- Check if the directory exists, if not create it --->
-                        <cfif not directoryExists(uploadDirectory)>
-                            <cfdirectory action="create" directory="#uploadDirectory#">
-                        </cfif>
-                        
-                        <!--- Upload the file to the server --->
-                        <cffile action="upload" filefield="imageFile" destination="#uploadDirectory#" nameconflict="makeunique">
-                        
-                        <!--- Get form data --->
-                        <cfset imageName = form.imageName>
-                        <cfset imageDescription = form.imageDescription>
-                        
-                        <!--- Set success response --->
-                        <cfset result.success = true>
-                        <cfset result.imageName = imageName>
-                        <cfset result.imageDescription = imageDescription>
-                        <cfset result.uploadedFileName = uploadedFileName>
+                        <cfset response.imageName = cffile.serverFileName>
+                        <cfset response.thumbnailName = thumbnailFileName>
                     <cfelse>
-                        <!--- File size exceeds the limit, set error response --->
-                        <cfset result.success = false>
-                        <cfset result.error = "File size exceeds the limit. Maximum allowed size is 1 MB.">
+                        <cfset response.success = false>
+                        <cfset response.message = "Error: Unsupported file type. Please upload files with extensions .jpg, .jpeg, .png, or .gif.">
+                        <cffile action="delete" file="#cffile.serverDirectory#\#cffile.serverFile#">
                     </cfif>
                 <cfelse>
-                    <!--- File type is not allowed, set error response --->
-                    <cfset result.success = false>
-                    <cfset result.error = "Only JPG, PNG, and GIF files are allowed.">
+                    <cfset response.success = false>
+                    <cfset response.message = "Error: File size exceeds #arguments.maxFileSize# bytes.">
+                    <cffile action="delete" file="#cffile.serverDirectory#\#cffile.serverFile#">
                 </cfif>
             <cfelse>
-                <!--- If no file selected, set error response --->
-                <cfset result.success = false>
-                <cfset result.error = "Please select an image to upload.">
+                <cfset response.success = false>
+                <cfset response.message = "Error uploading file. Please try again.">
             </cfif>
-            
-            <cfcatch>
-                <!--- If an error occurs during upload, set error response --->
-                <cfset result.success = false>
-                <cfset result.error = "An error occurred during image upload.">
-            </cfcatch>
-        </cftry>
-        
-        <cfreturn result>
-    </cffunction>
+        </cfif>
 
+        <cfreturn response>
+    </cffunction>
 </cfcomponent>
+
+
