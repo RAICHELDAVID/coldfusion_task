@@ -20,7 +20,7 @@
                         <cfset thumbnailFileName = thumbnailFileName & "." & cffile.serverFileExt> <!-- Append the original file's extension -->
 
                         <cfimage action="resize" source="#cffile.serverDirectory#\#cffile.serverFile#" destination="#thumbnailPath#\#thumbnailFileName#" width="20" height="20" overwrite="true">
-                      <!---<cfimage source="#thumbnailPath#\#thumbnailFileName#" action="writeToBrowser">
+                     <!--- <cfimage source="#thumbnailPath#\#thumbnailFileName#" action="writeToBrowser">
                        <cfoutput>#arguments.name#</cfoutput>--->
                       <cfset response.success = true>
                         <cfset response.message = "File uploaded successfully.">
